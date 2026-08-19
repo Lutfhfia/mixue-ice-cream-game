@@ -102,6 +102,72 @@ document.addEventListener("keyup", function (event) {
 });
 
 // =====================================
+// TOUCH CONTROL
+// =====================================
+
+let touchStartX = 0;
+
+let touchStartY = 0;
+
+
+game.addEventListener("touchstart", function (event) {
+
+  if (!gameRunning) {
+    return;
+  }
+
+  const touch = event.touches[0];
+
+  touchStartX = touch.clientX;
+
+  touchStartY = touch.clientY;
+
+}, { passive: true });
+
+
+game.addEventListener(
+  "touchmove",
+  function (event) {
+    if (!gameRunning) {
+      return;
+    }
+
+    const touch = event.touches[0];
+
+    const currentX = touch.clientX;
+
+    const differenceX = currentX - touchStartX;
+
+    // Geser karakter
+    playerX += differenceX;
+
+    // Batas arena
+    const gameWidth = game.clientWidth;
+
+    const minX = gameWidth * 0.25;
+
+    const maxX = gameWidth * 0.75;
+
+    if (playerX < minX) {
+      playerX = minX;
+    }
+
+    if (playerX > maxX) {
+      playerX = maxX;
+    }
+
+    // Update posisi langsung
+    person.style.left = playerX + "px";
+
+    // Simpan posisi jari
+    touchStartX = currentX;
+
+    event.preventDefault();
+  },
+  { passive: false },
+);
+
+// =====================================
 // BUTTON
 // =====================================
 
