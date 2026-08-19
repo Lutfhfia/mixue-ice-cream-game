@@ -200,7 +200,7 @@ function movePlayer() {
   const maxX = gameWidth * 0.8;
 
   // Kecepatan karakter
-  const playerSpeed = 8;
+  const playerSpeed = 5;
 
   // Gerak kiri
   if (leftPressed) {

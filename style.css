@@ -120,7 +120,7 @@ body {
 ================================= */
 
 #person {
-    width: 128px;
+    width: 105px;
 
     position: absolute;
 
@@ -164,9 +164,9 @@ body {
 .ice-cream {
     position: absolute;
 
-    width: 82px;
+    width: 70px;
 
-    height: 82px;
+    height: 70px;
 
     object-fit: contain;
 
@@ -385,11 +385,11 @@ body {
   }
 
   #person {
-    width: 90px;
+    width: 75px;
   }
 
   .ice-cream {
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
   }
 }
