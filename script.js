@@ -192,11 +192,12 @@ function updateGame() {
 function movePlayer() {
   const gameWidth = game.clientWidth;
 
-  // Arena karakter hanya sekitar 50%
+  // Arena karakter sekitar 60% dari lebar game,
+  // agar tetap dapat mengejar es krim yang lebih menyebar.
   // dari lebar game
-  const minX = gameWidth * 0.25;
+  const minX = gameWidth * 0.2;
 
-  const maxX = gameWidth * 0.75;
+  const maxX = gameWidth * 0.8;
 
   // Kecepatan karakter
   const playerSpeed = 8;
@@ -256,17 +257,44 @@ function createIceCream() {
   const gameWidth = game.clientWidth;
 
   /*
-        Area gerak sekitar 50%
+        Area gerak sekitar 60%
         dari lebar game.
     */
 
-  const minX = gameWidth * 0.25;
+  const minX = gameWidth * 0.2;
 
-  const maxX = gameWidth * 0.75;
+  const maxX = gameWidth * 0.8;
 
-  const randomX = minX + Math.random() * (maxX - minX);
+  // Makin lama, posisi spawn makin berjauhan agar item tidak bertumpuk.
+  const level = Math.floor((Date.now() - gameStartTime) / 5000);
+  const minimumDistance = Math.min(130, 85 + level * 8);
+  const existingIceCreams = document.querySelectorAll(".ice-cream");
+  let randomX = minX;
+  let bestDistance = -1;
+
+  // Ambil posisi terbaik dari beberapa kandidat random.
+  for (let attempt = 0; attempt < 12; attempt++) {
+    const candidateX = minX + Math.random() * (maxX - minX);
+    let closestDistance = Infinity;
+
+    existingIceCreams.forEach(function (existingIceCream) {
+      const distance = Math.abs(candidateX - Number(existingIceCream.dataset.x));
+      closestDistance = Math.min(closestDistance, distance);
+    });
+
+    if (closestDistance > bestDistance) {
+      bestDistance = closestDistance;
+      randomX = candidateX;
+    }
+
+    if (closestDistance >= minimumDistance) {
+      randomX = candidateX;
+      break;
+    }
+  }
 
   iceCream.style.left = randomX + "px";
+  iceCream.dataset.x = randomX;
 
   // =================================
   // POSISI AWAL
