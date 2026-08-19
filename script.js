@@ -12,7 +12,7 @@ let lives = 3;
 let playerX = 0;
 
 // Kecepatan awal es krim (pixel per frame)
-let speed = 4;
+let speed = 2.6;
 
 // Timer / animation
 let gameLoop;
@@ -131,7 +131,7 @@ function startGame() {
   lives = 3;
 
   // Kecepatan awal
-  speed = 4;
+  speed = 2.6;
 
   // Simpan waktu mulai
   gameStartTime = Date.now();
@@ -293,9 +293,9 @@ function scheduleIceCream() {
 
   const elapsedTime = (Date.now() - gameStartTime) / 1000;
 
-  // Awalnya renggang, lalu tambah satu es krim setiap 15 detik.
-  // Batas 850 ms menjaga item tetap bisa ditangkap.
-  const spawnDelay = Math.max(850, 1700 - Math.floor(elapsedTime / 15) * 150);
+  // Awalnya renggang, lalu setiap 5 detik item muncul lebih sering.
+  // Batas 900 ms menjaga permainan tetap adil.
+  const spawnDelay = Math.max(900, 1800 - Math.floor(elapsedTime / 5) * 150);
 
   iceCreamLoop = setTimeout(function () {
     createIceCream();
@@ -345,20 +345,21 @@ function increaseDifficulty() {
   const elapsedTime = (Date.now() - gameStartTime) / 1000;
 
   /*
-        Setiap 15 detik:
+        Setiap 5 detik:
 
-        0 - 14 detik  = speed 4
-        15 - 29       = speed 4.5
-        30 - 44       = speed 5
-        45 - 59       = speed 5.5
+        0 - 4 detik   = speed 2.6
+        5 - 9         = speed 3.15
+        10 - 14       = speed 3.7
+        15 - 19       = speed 4.25
+        dst.
         dst.
     */
 
-  speed = 4 + Math.floor(elapsedTime / 15) * 0.5;
+  speed = 2.6 + Math.floor(elapsedTime / 5) * 0.55;
 
   // Kecepatan maksimum
-  if (speed > 8) {
-    speed = 8;
+  if (speed > 7) {
+    speed = 7;
   }
 }
 
@@ -455,7 +456,7 @@ gameSound.play().catch(function (error) {
 
   lives = 3;
 
-  speed = 4;
+  speed = 2.6;
 
   gameStartTime = Date.now();
 
