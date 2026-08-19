@@ -45,6 +45,9 @@ body {
 
     box-shadow:
         0 0 30px rgba(0, 0, 0, 0.35);
+
+    /* Ukuran item responsif mengikuti arena game, bukan lebar monitor. */
+    container-type: inline-size;
 }
 
 
@@ -122,7 +125,7 @@ body {
 ================================= */
 
 #person {
-    width: clamp(85px, 15vw, 150px);
+    width: clamp(85px, 25cqw, 130px);
 
     position: absolute;
 
@@ -166,9 +169,9 @@ body {
 .ice-cream {
     position: absolute;
 
-    width: clamp(55px, 10vw, 100px);
+    width: clamp(55px, 16cqw, 82px);
 
-    height: clamp(55px, 10vw, 100px);
+    height: clamp(55px, 16cqw, 82px);
 
     object-fit: contain;
 
